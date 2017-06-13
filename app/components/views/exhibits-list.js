@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function(props) {
     return (
-        <div className="exhibits-list">
-            <table>
+        <div className="exhibits-list container">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th>Название</th>
@@ -13,7 +13,7 @@ export default function(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.exhibits.map((item, index) => {
+                    {props.data.map((item, index) => {
                         return (
                             <tr key={index}>
                                 <td>{item.name}</td>

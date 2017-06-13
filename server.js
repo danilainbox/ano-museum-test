@@ -6,7 +6,7 @@ var app = express();
 
 app.use(compression());
 
-// serve our static stuff like index.css
+// serve our static stuff like index.less
 app.use(express.static(path.join(__dirname, 'public')));
 
 // send all requests to index.html so browserHistory works
