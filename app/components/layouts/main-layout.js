@@ -5,12 +5,14 @@ import store from '../../store';
 import * as types from '../../actions/action-types';
 import {connect} from 'react-redux';
 import ExhibitsList from '../views/exhibits-list';
+import AddExhibitContainer from '../containers/add-exhibit-container';
+import bootstrap from 'bootstrap';
 
 class MainLayout extends React.Component {
     constructor () {
         super();
         this.state = {
-            perPage: 2,
+            perPage: 3,
             pos: 0
         }
     }
@@ -44,7 +46,7 @@ class MainLayout extends React.Component {
     render() {
         let items = this.paginate();
         return (
-            <div>
+            <div className="pt-20 container">
                 <ExhibitsList data={items} />
                 <div className="pagination-container">
                     <ReactPaginate
@@ -55,6 +57,7 @@ class MainLayout extends React.Component {
                         activeClassName={"active"}
                     />
                 </div>
+                <AddExhibitContainer />
             </div>
         );
     }

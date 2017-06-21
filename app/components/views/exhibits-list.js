@@ -2,24 +2,24 @@ import React from 'react';
 
 export default function(props) {
     return (
-        <div className="exhibits-list container">
-            <table className="table table-bordered">
+        <div className="exhibits-list">
+            <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th>Название</th>
-                        <th>Место создания</th>
-                        <th>Организация</th>
-                        <th>Описание</th>
+                        <th className="name">Название</th>
+                        <th className="place">Место создания</th>
+                        <th className="organization">Организация</th>
+                        <th className="description">Описание</th>
                     </tr>
                 </thead>
                 <tbody>
                     {props.data.map((item, index) => {
                         return (
                             <tr key={index}>
-                                <td>{item.name}</td>
-                                <td>{item.city},&nbsp;{item.country}</td>
-                                <td>{item.organization}</td>
-                                <td>{item.description}</td>
+                                <td className="name">{item.name}</td>
+                                <td className="place">{item.city}{item.city ? ', ' : ''}{item.country}</td>
+                                <td className="organization">{item.organization}</td>
+                                <td className="description">{item.description}</td>
                             </tr>
                         );
                     })}

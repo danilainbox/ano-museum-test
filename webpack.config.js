@@ -15,9 +15,19 @@ module.exports = {
             new webpack.optimize.DedupePlugin(),
             new webpack.optimize.OccurrenceOrderPlugin(),
             new webpack.optimize.UglifyJsPlugin(),
+            new webpack.ProvidePlugin({
+                '$': 'jquery',
+                'jQuery': 'jquery',
+                'bootstrap': 'bootstrap'
+            }),
             new ExtractTextPlugin('bundle.css')
         ] : [
-            new ExtractTextPlugin('bundle.css')
+            new ExtractTextPlugin('bundle.css'),
+            new webpack.ProvidePlugin({
+                '$': 'jquery',
+                'jQuery': 'jquery',
+                'bootstrap': 'bootstrap'
+            }),
         ],
 
     module: {
@@ -27,8 +37,8 @@ module.exports = {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
             },
-            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" },
+            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader?name=fonts/[name].[ext]" }
         ]
     }
 };

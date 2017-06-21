@@ -1,1 +1,2 @@
 export const GET_EXHIBITS_SUCCESS = 'GET_EXHIBITS_SUCCESS';
+export const ADD_EXHIBIT = 'ADD_EXHIBIT';
