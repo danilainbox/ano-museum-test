@@ -20,7 +20,16 @@ export default class AddExhibitContainer extends React.Component {
             type: types.ADD_EXHIBIT,
             exhibit: this.state
         });
+
         $('#myModal').modal('hide');
+
+        this.setState({
+            name: '',
+            city: '',
+            country: '',
+            organization: '',
+            description: ''
+        })
     }
     handleFormChange (e) {
         let type = e.target.getAttribute('data-type'),
@@ -46,7 +55,7 @@ export default class AddExhibitContainer extends React.Component {
     }
     render () {
         return (
-            <AddExhibit addExhibit = {this.addExhibit.bind(this)} handleFormChange={this.handleFormChange.bind(this)} />
+            <AddExhibit addExhibit = {this.addExhibit.bind(this)} handleFormChange={this.handleFormChange.bind(this)} data={this.state} />
         );
     }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 export default function(props) {
     return (
         <div className="add-exhibit">
-            <button type="button" className="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">
+            <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                 Добавить экспонат
             </button>
             <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -17,23 +17,23 @@ export default function(props) {
                             <div className="modal-body">
                                 <div className="form-group">
                                     <label htmlFor="exhibit-name">Название</label>
-                                    <input data-type="name" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-name"/>
+                                    <input data-type="name" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-name" value={props.data.name}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="exhibit-city">Город</label>
-                                    <input data-type="city" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-city"/>
+                                    <input data-type="city" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-city" value={props.data.city}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="exhibit-country">Страна</label>
-                                    <input data-type="country" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-country"/>
+                                    <input data-type="country" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-country" value={props.data.country}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="exhibit-organization">Организация</label>
-                                    <input data-type="organization" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-organization"/>
+                                    <input data-type="organization" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-organization" value={props.data.organization}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="exhibit-description">Описание</label>
-                                    <input data-type="description" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-description"/>
+                                    <input data-type="description" type="text" onChange={props.handleFormChange} className="form-control" id="exhibit-description" value={props.data.description}/>
                                 </div>
                             </div>
                             <div className="modal-footer">

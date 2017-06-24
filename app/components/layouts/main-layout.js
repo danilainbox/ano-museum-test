@@ -1,21 +1,24 @@
 import React from 'react';
 import axios from 'axios';
-import ReactPaginate from 'react-paginate';
 import store from '../../store';
 import * as types from '../../actions/action-types';
 import {connect} from 'react-redux';
-import ExhibitsList from '../views/exhibits-list';
+import SearchResultContainer from '../containers/search-result-container';
 import AddExhibitContainer from '../containers/add-exhibit-container';
-import bootstrap from 'bootstrap';
+import Bootstrap from 'bootstrap';
+
 
 class MainLayout extends React.Component {
-    constructor () {
-        super();
+    constructor (props) {
+        super(props);
         this.state = {
-            perPage: 3,
-            pos: 0
-        }
+            searchString: ''
+        };
+
+        this.handleSearchStringChange = this.handleSearchStringChange.bind(this);
+        this.search = this.search.bind(this);
     }
+
     componentDidMount() {
         axios.get('/data/exhibits.json').then(response => {
             store.dispatch({
@@ -24,42 +27,60 @@ class MainLayout extends React.Component {
             });
         });
     }
-    handlePageClick(data) {
-        this.setState({pos: data.selected});
+
+    handleSearchStringChange(e) {
+        this.setState({
+            searchString: e.target.value.toLowerCase()
+        })
     }
 
-    paginate() {
-        let pos = this.state.pos,
-            perPage = this.state.perPage,
-            lastPos = Math.round(this.props.exhibits.length/perPage),
-            res;
+    search() {
+        let searchString = this.state.searchString,
+            isEmptyQuery = searchString.trim() === '' ? true : false,
+            items;
 
-        if ((pos * perPage) > (this.props.exhibits.length - 1)) {
-            pos = lastPos;
+        if (!isEmptyQuery) {
+            items = this.props.exhibits.filter(item => ~item.name.toLowerCase().indexOf(searchString));
         }
 
-        res = this.props.exhibits.slice(pos * perPage, pos * perPage + perPage);
-
-        return res;
+        store.dispatch({
+            type: types.SAVE_SEARCH_RESULT,
+            items: items,
+            isEmptyQuery: isEmptyQuery
+        });
     }
 
     render() {
-        let items = this.paginate();
+        let result;
+
+        if(this.props.exhibits.length) {
+            result = (
+                <div className="top-container">
+                    <div className="input-group input-group-lg search-container">
+                        <input className="form-control" placeholder="Введите название экспоната" onChange={this.handleSearchStringChange} />
+                        <span className="input-group-btn">
+                            <button className="btn btn-primary" type="button" onClick={this.search}>Найти</button>
+                        </span>
+                    </div>
+                    <AddExhibitContainer/>
+                </div>
+
+            )
+        } else {
+            result = (
+                <div className="loader">
+                    <span>Загрузка...</span>
+                </div>
+            )
+        }
+
         return (
             <div className="pt-20 container">
-                <ExhibitsList data={items} />
-                <div className="pagination-container">
-                    <ReactPaginate
-                        pageCount={Math.ceil(this.props.exhibits.length/this.state.perPage)}
-                        pageRangeDisplayed={10}
-                        onPageChange={this.handlePageClick.bind(this)}
-                        containerClassName={"pagination"}
-                        activeClassName={"active"}
-                    />
-                </div>
-                <AddExhibitContainer />
+                {result}
+                <SearchResultContainer/>
             </div>
-        );
+        )
+
     }
 }
 
@@ -75,6 +96,5 @@ const mapStateToProps = state => ({
 //         }
 //     }
 // };
-
 
 export default connect(mapStateToProps)(MainLayout);
