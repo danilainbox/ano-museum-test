@@ -88,13 +88,4 @@ const mapStateToProps = state => ({
     exhibits: state.exhibitsState
 });
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//     return {
-//         showOwnProps: () => {
-//             console.log(ownProps);
-//             console.log(dispatch);
-//         }
-//     }
-// };
-
 export default connect(mapStateToProps)(MainLayout);
